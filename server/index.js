@@ -8,6 +8,7 @@ import adminRoutes from './routes/admin.js';
 import { mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import 'dotenv/config';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -24,7 +25,7 @@ await fastify.register(cors, {
 
 // JWT — troque o secret por uma variável de ambiente em produção
 await fastify.register(jwt, {
-  secret: process.env.JWT_SECRET || 'nutriplus-dev-secret-troque-em-producao',
+  secret: process.env.JWT_SECRET,
 });
 
 // Rotas
@@ -37,5 +38,5 @@ fastify.get('/api/health', async () => ({ status: 'ok' }));
 
 // Inicia DB e servidor
 await initDB();
-await fastify.listen({ port: 3333, host: '0.0.0.0' });
+await fastify.listen({ port: Number(process.env.PORT) || 3333, host: '0.0.0.0' });
 console.log('🥦 NutriPlus API rodando em http://localhost:3333');

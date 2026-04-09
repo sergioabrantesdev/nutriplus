@@ -1,10 +1,4 @@
-/**
- * NutriPlus — Social Auth
- * Google OAuth 2.0 via popup (funciona em localhost e produção)
- *
- * Google → https://console.cloud.google.com/  (OAuth 2.0 Client ID)
- */
-const GOOGLE_CLIENT_ID = '980028373519-f2mlsv2ha0apvfekk3shjjkda5reujm4.apps.googleusercontent.com';
+import { GOOGLE_CLIENT_ID } from './config.js';
 
 /* ─── Utilitários ─────────────────────────────────────────── */
 

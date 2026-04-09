@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { getDB } from '../db.js';
 
-const ADMIN_PASSWORD = 'nutriplus-admin-2026';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 export default async function adminRoutes(fastify) {
 

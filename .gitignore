@@ -1,7 +1,12 @@
 node_modules/
 data/
 dist/
+
+# Variáveis de ambiente e segredos
 .env
+config.js
+
+# Banco de dados
 *.db
 *.db-shm
 *.db-wal
