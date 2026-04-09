@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriPlus — Início</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-900: #0f3d1e; --green-800: #1a5c2e; --green-700: #226b37;
+      --green-600: #2d8c4e; --green-500: #3aac60; --green-400: #5cc87a;
+      --green-50: #f0f9f3; --white: #ffffff;
+      --gray-100: #f3f3f1; --gray-200: #e5e5e2; --gray-400: #a3a39f;
+      --gray-600: #6b6b67; --gray-800: #2c2c29; --text: #1a1a17;
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-100);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      height: 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo { display: flex; align-items: center; gap: 9px; }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--green-600), var(--green-800));
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(45,140,78,.3);
+    }
+    .logo-mark svg { width: 18px; height: 18px; }
+    .logo-wordmark { font-size: 1.1rem; font-weight: 600; color: var(--green-800); letter-spacing: -.3px; }
+    .logo-wordmark em { font-style: normal; color: var(--green-600); }
+
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    .user-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--green-50); border: 1px solid rgba(45,140,78,.15);
+      border-radius: 20px; padding: .35rem .85rem .35rem .45rem;
+      font-size: .85rem; color: var(--green-800); font-weight: 500;
+    }
+
+    .user-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      background: var(--green-600);
+    }
+
+    .user-avatar-placeholder {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-500), var(--green-800));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+
+    .btn-logout {
+      height: 34px; padding: 0 1rem;
+      background: none; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; color: var(--gray-600); cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-logout:hover { border-color: #d94040; color: #d94040; }
+
+    /* ── MAIN ── */
+    .main { max-width: 1020px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+    .welcome {
+      margin-bottom: 2rem;
+      animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+    .welcome h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem; font-weight: 700; color: var(--text);
+      letter-spacing: -.4px; margin-bottom: .3rem;
+    }
+
+    .welcome p { font-size: .9rem; color: var(--gray-600); }
+
+    /* ── CARDS GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-bottom: 1.5rem; }
+
+    .stat-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 1.4rem 1.5rem; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .stat-card:nth-child(2) { animation-delay: .05s; }
+    .stat-card:nth-child(3) { animation-delay: .1s; }
+
+    .stat-label { font-size: .72rem; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: .5px; margin-bottom: .5rem; }
+    .stat-value { font-size: 2rem; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: .3rem; }
+    .stat-trend { font-size: .78rem; color: var(--green-600); }
+
+    /* ── BANNER ── */
+    .banner {
+      background: linear-gradient(135deg, var(--green-800), var(--green-900));
+      border-radius: var(--radius-lg); padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; box-shadow: var(--shadow-md);
+      animation: fadeUp .5s .15s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .banner-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--white);
+      margin-bottom: .4rem;
+    }
+
+    .banner-text p { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+
+    .btn-banner {
+      flex-shrink: 0; height: 42px; padding: 0 1.5rem;
+      background: var(--white); color: var(--green-800);
+      border: none; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 600;
+      cursor: pointer; transition: opacity .15s, transform .13s;
+      white-space: nowrap;
+    }
+    .btn-banner:hover { opacity: .9; transform: translateY(-1px); }
+
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .stat-card:last-child { display: none; }
+      .banner { flex-direction: column; align-items: flex-start; }
+      .navbar { padding: 0 1rem; }
+      .main { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 19 19" fill="none">
+          <path d="M9.5 1.5C9.5 1.5 3.5 5.8 3.5 11.8C3.5 15.6 6.2 18.5 9.5 18.5C12.8 18.5 15.5 15.6 15.5 11.8C15.5 5.8 9.5 1.5 9.5 1.5Z" fill="white"/>
+          <path d="M9.5 7C9.5 7 6.5 9.2 6.5 12C6.5 13.65 7.85 15 9.5 15C11.15 15 12.5 13.65 12.5 12C12.5 9.2 9.5 7 9.5 7Z" fill="#2d8c4e" opacity="0.7"/>
+        </svg>
+      </div>
+      <span class="logo-wordmark"><em>Nutri</em>Plus</span>
+    </div>
+
+    <div class="nav-right">
+      <div class="user-pill">
+        <div class="user-avatar-placeholder" id="user-initials">?</div>
+        <span id="user-name">Carregando...</span>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sair</button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="welcome">
+      <h1 id="welcome-msg">Olá!</h1>
+      <p>Aqui está um resumo da sua plataforma hoje.</p>
+    </div>
+
+    <div class="grid">
+      <div class="stat-card">
+        <div class="stat-label">Pacientes ativos</div>
+        <div class="stat-value">248</div>
+        <div class="stat-trend">↑ +12% vs mês anterior</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Consultas hoje</div>
+        <div class="stat-value">7</div>
+        <div class="stat-trend">↑ 2 confirmadas agora</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Planos ativos</div>
+        <div class="stat-value">134</div>
+        <div class="stat-trend">↑ +5 esta semana</div>
+      </div>
+    </div>
+
+    <div class="banner">
+      <div class="banner-text">
+        <h2>Alcance metas nutricionais mais rápido</h2>
+        <p>Gerencie seus pacientes com planos personalizados, sem burocracia. Acompanhe, evolua e transforme vidas.</p>
+      </div>
+      <button class="btn-banner" type="button">Explorar recursos</button>
+    </div>
+  </main>
+
+  <script type="module">
+    // Lê os dados do usuário salvos pelo auth-social.js
+    const raw = sessionStorage.getItem('nutriplus_user');
+    if (!raw) {
+      // Não autenticado — volta pro login
+      window.location.replace('/login.html');
+    } else {
+      const user = JSON.parse(raw);
+      const firstName = (user.name || user.email || 'Usuário').split(' ')[0];
+      const initials  = (user.name || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+
+      document.getElementById('welcome-msg').textContent  = 'Olá, ' + firstName + '!';
+      document.getElementById('user-name').textContent    = user.name || user.email;
+      document.getElementById('user-initials').textContent = initials;
+
+      if (user.picture) {
+        const img = document.createElement('img');
+        img.src = user.picture;
+        img.alt = user.name;
+        img.className = 'user-avatar';
+        document.getElementById('user-initials').replaceWith(img);
+      }
+    }
+
+    window.logout = function () {
+      sessionStorage.removeItem('nutriplus_user');
+      window.location.replace('/login.html');
+    };
+  </script>
+
+</body>
+</html>

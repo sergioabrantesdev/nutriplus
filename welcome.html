@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriPlus — Bem-vindo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-900: #0f3d1e; --green-800: #1a5c2e; --green-700: #226b37;
+      --green-600: #2d8c4e; --green-500: #3aac60;
+      --green-50: #f0f9f3; --green-100: #d4eddb;
+      --white: #ffffff; --gray-50: #fafaf9; --gray-100: #f3f3f1;
+      --gray-200: #e5e5e2; --gray-400: #a3a39f; --gray-600: #6b6b67;
+      --text: #1a1a17; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.14), 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, #e8f5ec 0%, #f3f3f1 50%, #eaf4ee 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 3rem 3.5rem;
+      width: 100%;
+      max-width: 460px;
+      animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo */
+    .logo { display: flex; align-items: center; gap: 9px; margin-bottom: 2.25rem; }
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--green-600), var(--green-800));
+      border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(45,140,78,.3);
+    }
+    .logo-mark svg { width: 19px; height: 19px; }
+    .logo-wordmark { font-size: 1.15rem; font-weight: 600; color: var(--green-800); letter-spacing: -.3px; }
+    .logo-wordmark em { font-style: normal; color: var(--green-600); }
+
+    /* Avatar */
+    .avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--green-100);
+      margin-bottom: .75rem;
+    }
+
+    .avatar-placeholder {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-500), var(--green-800));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 700; color: var(--white);
+      border: 3px solid var(--green-100);
+      margin-bottom: .75rem;
+    }
+
+    .avatar-email {
+      font-size: .82rem;
+      color: var(--gray-400);
+    }
+
+    /* Heading */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: var(--text); line-height: 1.2;
+      letter-spacing: -.4px; margin-bottom: .4rem;
+      text-align: center;
+    }
+
+    .sub {
+      font-size: .875rem; color: var(--gray-600);
+      text-align: center; margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    /* Campo */
+    .field { margin-bottom: 1.5rem; }
+
+    .field label {
+      display: block; font-size: .75rem; font-weight: 600;
+      color: var(--gray-600); letter-spacing: .5px;
+      text-transform: uppercase; margin-bottom: .45rem;
+    }
+
+    .input-wrap { position: relative; display: flex; align-items: center; }
+
+    .input-icon {
+      position: absolute; left: 13px;
+      color: var(--gray-400); pointer-events: none; display: flex;
+    }
+
+    .input-wrap input {
+      width: 100%; height: 48px;
+      padding: 0 44px 0 42px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem; color: var(--text);
+      background: var(--gray-50); outline: none;
+      transition: border-color .18s, box-shadow .18s, background .18s;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--green-600);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(45,140,78,.1);
+    }
+
+    .input-wrap input.invalid {
+      border-color: #d94040;
+      box-shadow: 0 0 0 4px rgba(217,64,64,.1);
+    }
+
+    .clear-btn {
+      position: absolute; right: 12px;
+      background: none; border: none; cursor: pointer;
+      color: var(--gray-400); display: flex; align-items: center;
+      padding: 2px; transition: color .15s;
+    }
+    .clear-btn:hover { color: var(--green-600); }
+
+    .field-msg { font-size: .75rem; color: #d94040; margin-top: .35rem; display: none; }
+    .field-msg.visible { display: block; }
+
+    /* Botão */
+    .btn-primary {
+      width: 100%; height: 50px;
+      background: linear-gradient(135deg, var(--green-700), var(--green-900));
+      color: var(--white); border: none; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 600;
+      letter-spacing: .3px; cursor: pointer;
+      transition: opacity .18s, transform .14s, box-shadow .18s;
+      box-shadow: 0 4px 14px rgba(26,92,46,.35);
+    }
+    .btn-primary:hover { opacity: .92; box-shadow: 0 6px 20px rgba(26,92,46,.4); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    .btn-back {
+      width: 100%; height: 40px; margin-top: .75rem;
+      background: none; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: .85rem;
+      color: var(--gray-400); cursor: pointer;
+      transition: color .15s;
+    }
+    .btn-back:hover { color: var(--gray-600); }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 19 19" fill="none">
+          <path d="M9.5 1.5C9.5 1.5 3.5 5.8 3.5 11.8C3.5 15.6 6.2 18.5 9.5 18.5C12.8 18.5 15.5 15.6 15.5 11.8C15.5 5.8 9.5 1.5 9.5 1.5Z" fill="white"/>
+          <path d="M9.5 7C9.5 7 6.5 9.2 6.5 12C6.5 13.65 7.85 15 9.5 15C11.15 15 12.5 13.65 12.5 12C12.5 9.2 9.5 7 9.5 7Z" fill="#2d8c4e" opacity="0.7"/>
+        </svg>
+      </div>
+      <span class="logo-wordmark"><em>Nutri</em>Plus</span>
+    </div>
+
+    <div class="avatar-wrap">
+      <div id="avatar-el" class="avatar-placeholder">?</div>
+      <span class="avatar-email" id="user-email"></span>
+    </div>
+
+    <h1>Como quer ser chamado?</h1>
+    <p class="sub">Este é o nome que aparecerá na plataforma. Pode usar seu nome completo ou apenas o primeiro.</p>
+
+    <div class="field">
+      <label for="display-name">Nome de exibição</label>
+      <div class="input-wrap">
+        <span class="input-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <input id="display-name" type="text" placeholder="Seu nome" autocomplete="off" />
+        <button class="clear-btn" type="button" id="clear-btn" title="Limpar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="field-msg" id="name-msg">Informe um nome para continuar.</div>
+    </div>
+
+    <button class="btn-primary" id="btn-continue" type="button">Entrar na plataforma</button>
+    <button class="btn-back" type="button" onclick="goBack()">← Usar outra conta</button>
+
+  </div>
+
+  <script type="module">
+    const raw = sessionStorage.getItem('nutriplus_user_pending');
+    if (!raw) {
+      window.location.replace('/login.html');
+    }
+
+    const user    = JSON.parse(raw);
+    const input   = document.getElementById('display-name');
+    const msg     = document.getElementById('name-msg');
+    const clearBtn = document.getElementById('clear-btn');
+    const avatarEl = document.getElementById('avatar-el');
+
+    // Preenche avatar
+    if (user.picture) {
+      const img = document.createElement('img');
+      img.src = user.picture;
+      img.alt = user.name;
+      img.className = 'avatar';
+      avatarEl.replaceWith(img);
+    } else {
+      const initials = (user.name || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+      avatarEl.textContent = initials;
+    }
+
+    document.getElementById('user-email').textContent = user.email || '';
+
+    // Preenche o campo com o nome vindo do Google
+    input.value = user.name || '';
+    input.select();
+
+    // Limpar campo
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+    });
+
+    // Validação em tempo real
+    input.addEventListener('input', () => {
+      input.classList.remove('invalid');
+      msg.classList.remove('visible');
+    });
+
+    // Confirmar
+    document.getElementById('btn-continue').addEventListener('click', async () => {
+      const name = input.value.trim();
+      if (!name) {
+        input.classList.add('invalid');
+        msg.classList.add('visible');
+        input.focus();
+        return;
+      }
+
+      const btn = document.getElementById('btn-continue');
+      btn.disabled = true;
+      btn.textContent = 'Entrando...';
+
+      try {
+        const res = await fetch('http://localhost:3333/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_token: user.access_token,
+            display_name: name,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || 'Erro no servidor.');
+
+        // Salva JWT e dados do usuário
+        sessionStorage.setItem('nutriplus_token', data.token);
+        sessionStorage.setItem('nutriplus_user', JSON.stringify(data.user));
+        sessionStorage.removeItem('nutriplus_user_pending');
+
+        window.location.href = '/index.html';
+
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = 'Entrar na plataforma';
+        const toast = document.createElement('div');
+        toast.textContent = e.message;
+        Object.assign(toast.style, {
+          position:'fixed', bottom:'1.5rem', left:'50%', transform:'translateX(-50%)',
+          background:'#2c2c29', color:'#fff', padding:'.75rem 1.4rem',
+          borderRadius:'8px', fontSize:'.85rem', zIndex:'9999',
+          boxShadow:'0 4px 16px rgba(0,0,0,.25)',
+        });
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3500);
+      }
+    });
+
+    // Enter confirma
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('btn-continue').click();
+    });
+
+    window.goBack = function () {
+      sessionStorage.removeItem('nutriplus_user_pending');
+      window.location.replace('/login.html');
+    };
+  </script>
+</body>
+</html>

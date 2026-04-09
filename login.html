@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriPlus — Entrar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <!-- Google Identity SDK -->
+  <script>
+    // Garante que o callback existe antes do SDK carregar
+    window.onGoogleLibraryLoad = function() {
+      if (window.__googleInitPending) window.__googleInitPending();
+    };
+  </script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --green-900: #0f3d1e;
+      --green-800: #1a5c2e;
+      --green-700: #226b37;
+      --green-600: #2d8c4e;
+      --green-500: #3aac60;
+      --green-400: #5cc87a;
+      --green-100: #d4eddb;
+      --green-50:  #f0f9f3;
+      --white:     #ffffff;
+      --gray-50:   #fafaf9;
+      --gray-100:  #f3f3f1;
+      --gray-200:  #e5e5e2;
+      --gray-400:  #a3a39f;
+      --gray-600:  #6b6b67;
+      --gray-800:  #2c2c29;
+      --text:      #1a1a17;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 60px rgba(0,0,0,0.16), 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, #e8f5ec 0%, #f3f3f1 50%, #eaf4ee 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────── */
+    .page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .card {
+      display: flex;
+      width: 100%;
+      max-width: 1020px;
+      min-height: 660px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── LEFT PANEL ──────────────────────────────────── */
+    .left {
+      flex: 1;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 3.5rem;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2.75rem;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--green-600), var(--green-800));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(45,140,78,0.3);
+    }
+
+    .logo-mark svg { width: 20px; height: 20px; }
+
+    .logo-wordmark {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--green-800);
+      letter-spacing: -0.3px;
+    }
+
+    .logo-wordmark em {
+      font-style: normal;
+      color: var(--green-600);
+    }
+
+    /* Heading */
+    .left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      margin-bottom: 2rem;
+    }
+
+    .sub a {
+      color: var(--green-600);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .sub a:hover { text-decoration: underline; }
+
+    /* Form */
+    .field { margin-bottom: 1.1rem; }
+
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 13px;
+      color: var(--gray-400);
+      pointer-events: none;
+      display: flex;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      height: 46px;
+      padding: 0 44px 0 42px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--gray-50);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+
+    .input-wrap input::placeholder { color: var(--gray-400); }
+
+    .input-wrap input:focus {
+      border-color: var(--green-600);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(45,140,78,0.1);
+    }
+
+    .toggle-eye {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      transition: color 0.15s;
+    }
+
+    .toggle-eye:hover { color: var(--green-600); }
+
+    /* Options row */
+    .opts {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.3rem 0 1.65rem;
+    }
+
+    .check-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.84rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .check-label input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--green-600);
+      cursor: pointer;
+    }
+
+    .forgot {
+      font-size: 0.84rem;
+      color: var(--green-600);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .forgot:hover { color: var(--green-800); }
+
+    /* Primary button */
+    .btn-primary {
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(135deg, var(--green-700), var(--green-900));
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: opacity 0.18s, transform 0.14s, box-shadow 0.18s;
+      box-shadow: 0 4px 14px rgba(26,92,46,0.35);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      box-shadow: 0 6px 20px rgba(26,92,46,0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    /* Divider */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin: 1.5rem 0;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    .or-divider span {
+      font-size: 0.775rem;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    /* Social buttons */
+    .socials { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .btn-social {
+      width: 100%;
+      height: 44px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--gray-800);
+      font-weight: 400;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.13s, box-shadow 0.15s;
+    }
+
+    .btn-social:hover {
+      background: var(--green-50);
+      border-color: var(--green-100);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-social:active { transform: translateY(0); box-shadow: none; }
+
+    /* Social logo — fixado à esquerda para alinhamento consistente */
+    .btn-social .social-logo {
+      position: absolute;
+      left: 16px;
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .btn-social .social-logo.apple-logo {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) saturate(100%);
+    }
+
+    /* Feedback de validação */
+    .field-msg {
+      font-size: 0.75rem;
+      margin-top: 0.35rem;
+      min-height: 1rem;
+      display: none;
+    }
+
+    .field-msg.error  { color: #d94040; display: block; }
+    .field-msg.ok     { color: var(--green-600); display: block; }
+
+    .input-wrap input.invalid { border-color: #d94040; box-shadow: 0 0 0 4px rgba(217,64,64,0.1); }
+    .input-wrap input.valid   { border-color: var(--green-500); box-shadow: 0 0 0 4px rgba(58,172,96,0.1); }
+
+    /* Requisitos de senha */
+    .pwd-rules {
+      margin-top: 0.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pwd-rules.visible { display: flex; }
+
+    .pwd-rule {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      transition: color 0.2s;
+    }
+
+    .pwd-rule.met { color: var(--green-600); }
+
+    .pwd-rule-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-300);
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .pwd-rule.met .pwd-rule-dot { background: var(--green-500); }
+
+    /* ── RIGHT PANEL ─────────────────────────────────── */
+    .right {
+      width: 420px;
+      flex-shrink: 0;
+      background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 2.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative circles */
+    .right::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      top: -150px;
+      right: -130px;
+      pointer-events: none;
+    }
+
+    .right::after {
+      content: '';
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      bottom: -90px;
+      left: -70px;
+      pointer-events: none;
+    }
+
+    /* Support pill */
+    .support-pill {
+      align-self: flex-end;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+      transition: background 0.15s;
+      z-index: 1;
+    }
+
+    .support-pill:hover { background: rgba(255,255,255,0.18); }
+
+    /* Center content */
+    .right-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.1rem;
+      z-index: 1;
+      padding: 1.5rem 0;
+    }
+
+    /* Feature card */
+    .feat-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .feat-text { flex: 1; }
+
+    .feat-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 0.45rem;
+    }
+
+    .feat-text p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 0.9rem;
+    }
+
+    .btn-feat {
+      display: inline-block;
+      padding: 0.46rem 1.05rem;
+      background: var(--white);
+      color: var(--green-800);
+      border-radius: 6px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.79rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.13s;
+    }
+
+    .btn-feat:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .plate-illo { flex-shrink: 0; }
+
+    /* Stats */
+    .stats-row { display: flex; gap: 0.75rem; }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .stat-lbl {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .stat-val small {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .stat-trend {
+      font-size: 0.72rem;
+      color: #6ee09a;
+      margin-top: 5px;
+    }
+
+    /* Bottom section */
+    .right-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.4rem;
+      z-index: 1;
+    }
+
+    .right-bottom h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.45rem;
+      line-height: 1.3;
+      transition: opacity 0.4s ease;
+    }
+
+    .right-bottom p {
+      font-size: 0.79rem;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.65;
+      max-width: 320px;
+      transition: opacity 0.4s ease;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 1.1rem;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--white);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      .page { padding: 0; }
+
+      .card {
+        flex-direction: column;
+        border-radius: 0;
+        min-height: 100vh;
+        box-shadow: none;
+      }
+
+      .right { width: 100%; min-height: 260px; }
+      .right-center { padding: 1rem 0; }
+      .stats-row .stat-card:last-child { display: none; }
+
+      .left { padding: 2.25rem 1.75rem; }
+      .left h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <!-- ════ LEFT ════ -->
+    <div class="left">
+
+      <!-- Logo -->
+      <div class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 19 19" fill="none">
+            <path d="M9.5 1.5C9.5 1.5 3.5 5.8 3.5 11.8C3.5 15.6 6.2 18.5 9.5 18.5C12.8 18.5 15.5 15.6 15.5 11.8C15.5 5.8 9.5 1.5 9.5 1.5Z" fill="white"/>
+            <path d="M9.5 7C9.5 7 6.5 9.2 6.5 12C6.5 13.65 7.85 15 9.5 15C11.15 15 12.5 13.65 12.5 12C12.5 9.2 9.5 7 9.5 7Z" fill="#2d8c4e" opacity="0.7"/>
+          </svg>
+        </div>
+        <span class="logo-wordmark"><em>Nutri</em>Plus</span>
+      </div>
+
+      <!-- Heading -->
+      <h1>Bem-vindo de volta</h1>
+      <p class="sub">Não tem uma conta? <a href="register.html">Registre-se agora</a></p>
+
+      <!-- Form -->
+      <form onsubmit="return false;">
+        <div class="field">
+          <label for="email">E-mail</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input id="email" type="email" placeholder="exemplo@gmail.com" autocomplete="email" />
+          </div>
+          <div class="field-msg" id="email-msg"></div>
+        </div>
+
+        <div class="field">
+          <label for="password">Senha</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
+            <button class="toggle-eye" type="button" aria-label="Mostrar senha" onclick="togglePwd(this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="pwd-rules" id="pwd-rules">
+            <div class="pwd-rule" id="rule-len"><span class="pwd-rule-dot"></span>Mínimo de 5 caracteres</div>
+            <div class="pwd-rule" id="rule-upper"><span class="pwd-rule-dot"></span>Pelo menos uma letra maiúscula</div>
+            <div class="pwd-rule" id="rule-num"><span class="pwd-rule-dot"></span>Pelo menos um número</div>
+          </div>
+          <div class="field-msg" id="pwd-msg"></div>
+        </div>
+
+        <div class="opts">
+          <label class="check-label">
+            <input type="checkbox" /> Lembrar de mim
+          </label>
+          <a href="#" class="forgot">Esqueci a senha?</a>
+        </div>
+
+        <button class="btn-primary" type="submit">Entrar na plataforma</button>
+      </form>
+
+      <div class="or-divider"><span>ou continue com</span></div>
+
+      <div class="socials">
+        <!-- Google -->
+        <button class="btn-social" id="btn-google" type="button" onclick="loginGoogle()">
+          <img src="images/google-icon-logo.svg" alt="Google" class="social-logo" />
+          Continuar com Google
+        </button>
+      </div>
+
+    </div>
+    <!-- ════ END LEFT ════ -->
+
+    <!-- ════ RIGHT ════ -->
+    <div class="right">
+
+      <button class="support-pill" type="button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        Suporte
+      </button>
+
+      <div class="right-center">
+
+        <!-- Feature card -->
+        <div class="feat-card">
+          <div class="feat-text">
+            <h3>Alcance metas nutricionais mais rápido</h3>
+            <p>Gerencie seus pacientes com planos personalizados, sem burocracia. Acompanhe, evolua e transforme vidas.</p>
+            <button class="btn-feat" type="button">Saiba mais</button>
+          </div>
+
+          <!-- Plate SVG -->
+          <div class="plate-illo">
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="46" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+              <circle cx="50" cy="50" r="33" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <ellipse cx="44" cy="45" rx="11" ry="8" fill="#3aac60"/>
+              <ellipse cx="57" cy="43" rx="9" ry="6.5" fill="#2d8c4e"/>
+              <ellipse cx="50" cy="50" rx="7.5" ry="5.5" fill="#5cc87a"/>
+              <circle cx="38" cy="57" r="6.5" fill="#e05252"/>
+              <ellipse cx="38" cy="52.5" rx="2.8" ry="1.8" fill="#c03e3e"/>
+              <ellipse cx="62" cy="57" rx="7.5" ry="9.5" fill="#5d9a3a"/>
+              <ellipse cx="62" cy="58" rx="3.8" ry="4.8" fill="#c8a850"/>
+              <path d="M47 61 Q50 68.5 53 61" stroke="#e08030" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-lbl">Pacientes ativos</div>
+            <div class="stat-val">248 <small>/ mês</small></div>
+            <div class="stat-trend">↑ +12% vs mês anterior</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-lbl">Consultas hoje</div>
+            <div class="stat-val">7 <small>agendadas</small></div>
+            <div class="stat-trend">↑ 2 confirmadas agora</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="right-bottom">
+        <h3 id="carousel-title">Apresentando novos recursos</h3>
+        <p id="carousel-text">A análise de tendências anteriores garante que nutricionistas sempre tomem as melhores decisões — e o impacto se multiplica.</p>
+        <div class="dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- ════ END RIGHT ════ -->
+
+  </div>
+</div>
+
+<script>
+  // ── Toggle senha ──────────────────────────────────
+  function togglePwd(btn) {
+    const input = btn.closest('.input-wrap').querySelector('input');
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    btn.innerHTML = isHidden
+      ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+      : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  }
+
+  // ── Validação de e-mail ───────────────────────────
+  const emailInput = document.getElementById('email');
+  const emailMsg   = document.getElementById('email-msg');
+
+  function isValidEmailFormat(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  // Só valida o formato em tempo real — a verificação real acontece no submit
+  emailInput.addEventListener('input', () => {
+    const val = emailInput.value.trim();
+    emailInput.classList.remove('valid', 'invalid');
+    emailMsg.className = 'field-msg';
+    emailMsg.textContent = '';
+
+    if (!val) return;
+
+    if (!isValidEmailFormat(val)) {
+      emailInput.classList.add('invalid');
+      emailMsg.className = 'field-msg error';
+      emailMsg.textContent = 'Formato de e-mail inválido.';
+    }
+  });
+
+  // ── Validação de senha ────────────────────────────
+  const pwdInput  = document.getElementById('password');
+  const pwdRules  = document.getElementById('pwd-rules');
+  const pwdMsg    = document.getElementById('pwd-msg');
+  const ruleLen   = document.getElementById('rule-len');
+  const ruleUpper = document.getElementById('rule-upper');
+  const ruleNum   = document.getElementById('rule-num');
+
+  pwdInput.addEventListener('focus', () => pwdRules.classList.add('visible'));
+
+  pwdInput.addEventListener('input', () => {
+    const val = pwdInput.value;
+    const okLen   = val.length >= 5;
+    const okUpper = /[A-Z]/.test(val);
+    const okNum   = /[0-9]/.test(val);
+
+    ruleLen.classList.toggle('met', okLen);
+    ruleUpper.classList.toggle('met', okUpper);
+    ruleNum.classList.toggle('met', okNum);
+
+    pwdInput.classList.remove('valid', 'invalid');
+    pwdMsg.className = 'field-msg';
+    pwdMsg.textContent = '';
+
+    if (val.length === 0) return;
+
+    if (okLen && okUpper && okNum) {
+      pwdInput.classList.add('valid');
+    } else {
+      pwdInput.classList.add('invalid');
+    }
+  });
+
+  pwdInput.addEventListener('blur', () => {
+    const val = pwdInput.value;
+    if (!val) { pwdRules.classList.remove('visible'); return; }
+    const ok = val.length >= 5 && /[A-Z]/.test(val) && /[0-9]/.test(val);
+    if (!ok) {
+      pwdMsg.className = 'field-msg error';
+      pwdMsg.textContent = 'A senha não atende aos requisitos.';
+    }
+  });
+
+  // ── Submit ────────────────────────────────────────
+  document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailVal = emailInput.value.trim();
+    const pwdVal   = pwdInput.value;
+
+    const emailOk = isValidEmailFormat(emailVal);
+    const pwdOk   = pwdVal.length >= 5 && /[A-Z]/.test(pwdVal) && /[0-9]/.test(pwdVal);
+
+    if (!emailOk) {
+      emailInput.classList.add('invalid');
+      emailMsg.className = 'field-msg error';
+      emailMsg.textContent = emailVal ? 'Formato de e-mail inválido.' : 'Informe seu e-mail.';
+    }
+
+    if (!pwdOk) {
+      pwdInput.classList.add('invalid');
+      pwdMsg.className = 'field-msg error';
+      pwdMsg.textContent = pwdVal ? 'A senha não atende aos requisitos.' : 'Informe sua senha.';
+      pwdRules.classList.add('visible');
+    }
+
+    if (emailOk && pwdOk) {
+      const btn = document.querySelector('.btn-primary');
+      btn.disabled = true;
+      btn.textContent = 'Entrando...';
+
+      try {
+        const res  = await fetch('http://localhost:3333/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailVal, password: pwdVal }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          btn.disabled = false;
+          btn.textContent = 'Entrar na plataforma';
+          emailInput.classList.add('invalid');
+          emailMsg.className = 'field-msg error';
+          emailMsg.textContent = data.error || 'Erro ao fazer login.';
+          return;
+        }
+
+        sessionStorage.setItem('nutriplus_token', data.token);
+        sessionStorage.setItem('nutriplus_user', JSON.stringify(data.user));
+        window.location.href = '/index.html';
+
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Entrar na plataforma';
+        emailMsg.className = 'field-msg error';
+        emailMsg.textContent = 'Servidor indisponível. Tente novamente.';
+      }
+    }
+  });
+
+  // ── Dot carousel ─────────────────────────────────
+  const slides = [
+    {
+      title: 'Apresentando novos recursos',
+      text: 'A análise de tendências anteriores garante que nutricionistas sempre tomem as melhores decisões — e o impacto se multiplica.'
+    },
+    {
+      title: 'Planos alimentares inteligentes',
+      text: 'Crie dietas personalizadas em segundos com base no perfil e nas metas de cada paciente, sem perder tempo com planilhas.'
+    },
+    {
+      title: 'Acompanhamento em tempo real',
+      text: 'Monitore a evolução dos seus pacientes com gráficos claros e receba alertas automáticos quando uma meta for atingida.'
+    }
+  ];
+
+  const dots        = document.querySelectorAll('.dot');
+  const carouselTitle = document.getElementById('carousel-title');
+  const carouselText  = document.getElementById('carousel-text');
+  let current = 0;
+
+  function goToSlide(index) {
+    dots[current].classList.remove('active');
+    current = index;
+    dots[current].classList.add('active');
+
+    carouselTitle.style.opacity = '0';
+    carouselText.style.opacity  = '0';
+
+    setTimeout(() => {
+      carouselTitle.textContent = slides[current].title;
+      carouselText.textContent  = slides[current].text;
+      carouselTitle.style.opacity = '1';
+      carouselText.style.opacity  = '1';
+    }, 400);
+  }
+
+  // Clique nas bolinhas para navegar manualmente
+  dots.forEach((dot, i) => dot.addEventListener('click', () => {
+    clearInterval(timer);
+    goToSlide(i);
+    timer = setInterval(() => goToSlide((current + 1) % slides.length), 3000);
+  }));
+
+  let timer = setInterval(() => goToSlide((current + 1) % slides.length), 3000);
+</script>
+<script type="module" src="/auth-social.js"></script>
+</body>
+</html>
